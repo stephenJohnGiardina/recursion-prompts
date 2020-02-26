@@ -220,6 +220,24 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+	if (x < 0 || y < 0) {
+		return null;
+	}
+	if (x === y) {
+		return x;
+	}
+	if (x === 0) {
+		return y;
+	}
+	if (y === 0) {
+		return x;
+	}
+	if (x > y){
+		return gcd(y, x % y);
+	}
+	if (y > x){
+		return gcd(x, y % x);
+	}	
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -249,12 +267,30 @@ var createArray = function(str) {
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+	let newArray = [];
+	for (let i = 0; i < array.length; i++) {
+		newArray.push(array[i]);
+	}
+	let reversed = [];
+	if (array.length === 0) {
+		return [];
+	}
+	reversed.push(newArray[newArray.length - 1]);
+	newArray.splice(newArray.length - 1, 1);
+	return reversed.concat(reverseArr(newArray));
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+	let list = [];
+	if (length === 0) {
+		return [];
+	}
+	list.push(value);
+	return list.concat(buildList(value, length - 1));
+
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.
