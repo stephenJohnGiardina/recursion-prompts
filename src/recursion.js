@@ -355,12 +355,13 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'e') // 2
 var countKeysInObj = function(obj, key) {
 	let count = 0;
-	if (Object.keys(obj).length === 0) {
+	let keys = Object.keys(obj);
+	if (keys.length === 0) {
 		return 0;
 	}
-	for (let i = 0; i < Object.keys(obj).length; i++) {
-		if(typeof obj[Object.keys(obj)[i]] === 'object') {
-			 count += countKeysInObj(obj[Object.keys(obj)[i]] , key);
+	for (let i = 0; i < keys.length; i++) {
+		if(typeof obj[keys[i]] === 'object') {
+			 count += countKeysInObj(obj[keys[i]] , key);
 		}
 		if (Object.keys(obj)[i] === key) {
 			count++;
@@ -374,6 +375,19 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+	let count = 0;
+	let keys = Object.keys(obj);
+	if(Object.keys(obj).length === 0) {
+		return 0;
+	}
+	for (let i = 0; i < keys.length; i++) {
+		if (typeof obj[keys[i]] === 'object') {
+			count += countValuesInObj(obj[keys[i]], value);
+		} if (obj[keys[i]] === value) {
+			count++;
+		}
+	}
+	return count;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
