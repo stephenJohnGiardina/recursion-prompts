@@ -530,6 +530,19 @@ var augmentElements = function(array, aug) {
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
 var minimizeZeroes = function(array) {
+	let list = [];
+	for (let i = 0; i < array.length; i++) {
+		list.push(array[i]);
+	}
+	for (let i = 0; i < list.length; i++) {
+		if (list[i] === 0 && list[i + 1] === 0) {
+			list.splice(i, 1);
+			return minimizeZeroes(list);
+		}
+		if (list[i + 1] === undefined) {
+			return list;
+		}
+	}
 };
 
 // 35. Alternate the numbers in an array between positive and negative regardless of
@@ -543,6 +556,26 @@ var alternateSign = function(array) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+	let string = '';
+	for (let i = 0; i < str.length; i++) {
+		if (isNaN(parseInt(str[i]))) {
+			string += str[i];
+		} else {
+			if (str[i] === '0') {string += 'zero'};
+			if (str[i] === '1') {string += 'one'};
+			if (str[i] === '2') {string += 'two'};
+			if (str[i] === '3') {string += 'three'};
+			if (str[i] === '4') {string += 'four'};
+			if (str[i] === '5') {string += 'five'};
+			if (str[i] === '6') {string += 'six'};
+			if (str[i] === '7') {string += 'seven'};
+			if (str[i] === '8') {string += 'eight'};
+			if (str[i] === '9') {string += 'nine'};
+			string += numToText(str.slice(i + 1));
+			return string;
+		}
+	}
+	return string;
 };
 
 
