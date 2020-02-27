@@ -497,6 +497,16 @@ var flatten = function(array) {
 // 31. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {p:1, o:2, t:2, a:1}
 var letterTally = function(str, obj) {
+	let result = Array.from(arguments)[1] || {};
+	if (str.length === 0) {
+		return result;
+	}
+	if (!result[str[0]]) {
+		result[str[0]] = 1;
+	} else {
+		result[str[0]]++;
+	}
+	return letterTally(str.slice(1), result);
 };
 
 // 32. Eliminate consecutive duplicates in a list. If the list contains repeated
@@ -505,6 +515,18 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
+	let newList = [];
+	for (let i = 0; i< list.length; i++) {
+		newList.push(list[i]);
+	}
+	for (let i = 0; i < newList.length; i++){
+		if (newList[i] === newList[i + 1]){
+			newList.splice(i, 1);
+			return compress(newList);
+		} else if (newList[i + 1] === undefined) {
+			return newList;
+		}
+	}
 };
 
 // 33. Augment every element in a list with a new value where each element is an array
